@@ -33,12 +33,6 @@ def parse_arguments():
         help='Maximum emails to fetch (alternative syntax)'
     )
     
-    parser.add_argument(
-        '--force', '-f',
-        action='store_true',
-        help='Skip confirmation prompts'
-    )
-    
     return parser.parse_args()
 
 def main():
@@ -61,12 +55,8 @@ def main():
     print(f"\nStep 3: Database status:")
     print(f"  - Existing emails: {existing_count}")
     
-    if existing_count >= max_emails and not args.force:
-        print(f"\nDatabase already has {existing_count} emails.")
-        response = input("\n    Fetch anyway? [y/N]: ").strip().lower()
-        if response != 'y':
-            print("\nSkipping fetch. Use --force to override.")
-            return
+    if existing_count >= max_emails:
+        print(f"\nWarning: database already has {existing_count} emails (>= requested {max_emails}). Proceeding with fetch...")
     
     print(f"\nStep 4: Fetching emails from Gmail...")
     emails = gmail.fetch_emails(max_results=max_emails)

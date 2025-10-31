@@ -182,43 +182,8 @@ class EmailDatabase:
             cursor.close()
             conn.close()
     
-    def get_email_history(self, email_id: str) -> List[Dict]:
-        """Get full history of an email (all versions)"""
-        conn = self.get_connection()
-        cursor = conn.cursor(cursor_factory=RealDictCursor)
-        
-        try:
-            cursor.execute('''
-                SELECT * FROM emails 
-                WHERE email_id = %s 
-                ORDER BY valid_from ASC
-            ''', (email_id,))
-            
-            rows = cursor.fetchall()
-            
-            history = []
-            for row in rows:
-                history.append({
-                    'email_id': row['email_id'],
-                    'valid_from': row['valid_from'],
-                    'valid_to': row['valid_to'],
-                    'is_current': row['is_current'],
-                    'labels': json.loads(row['labels']) if row['labels'] else [],
-                    'subject': row['subject'],
-                    'from': row['from_email']
-                })
-            
-            return history
-            
-        except Exception as e:
-            print(f"Error fetching history: {e}")
-            return []
-        finally:
-            cursor.close()
-            conn.close()
-    
     def count_emails(self) -> int:
-        """Get count of CURRENT emails (unique emails)"""
+        """Get count of current active unique emails"""
         conn = self.get_connection()
         cursor = conn.cursor()
         

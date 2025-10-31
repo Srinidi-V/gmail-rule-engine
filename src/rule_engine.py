@@ -14,7 +14,7 @@ class RuleEngine:
         # Validate rules before loading
         self._validate_rules(rules_file)
         self.rules = self.load_rules(rules_file)
-        print(f"✓ Loaded {len(self.rules)} validated rules")
+        print(f"Loaded {len(self.rules)} validated rules")
     
     def _validate_rules(self, rules_file: str):
         """Validate rules file - integrated validation"""
@@ -25,13 +25,13 @@ class RuleEngine:
             validator.validate_rules_file(rules_file)
             
             if validator.warnings:
-                print(f"\n⚠️  Validation warnings:")
+                print(f"\nValidation warnings:")
                 for warning in validator.warnings:
                     print(f"  {warning}")
                 print()
         
         except RuleValidationError as e:
-            print(f"\n✗ Rule validation failed:")
+            print(f"\nRule validation failed:")
             print(str(e))
             print("\nFix the errors above and try again.")
             raise
@@ -43,7 +43,7 @@ class RuleEngine:
                 data = json.load(f)
             return data.get('rules', [])
         except Exception as e:
-            print(f"✗ Error loading rules: {e}")
+            print(f"Error loading rules: {e}")
             return []
     
     def evaluate_rules(self, email: Dict) -> List[Dict]:
@@ -52,7 +52,7 @@ class RuleEngine:
         
         for rule in self.rules:
             if self.evaluate_rule(rule, email):
-                print(f"  ✓ Rule matched: '{rule['name']}'")
+                print(f"Rule matched: '{rule['name']}'")
                 actions_to_execute.extend(rule['actions'])
         
         return actions_to_execute
@@ -132,7 +132,7 @@ class RuleEngine:
                 return email_date > threshold
             
         except Exception as e:
-            print(f"✗ Error evaluating date: {e}")
+            print(f"Error evaluating date: {e}")
             return False
         
         return False
