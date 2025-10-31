@@ -1,0 +1,14 @@
+{
+    "rules": [
+      {
+        "name": "Test 1 - Missing type",
+        "predicate": "all",
+        "conditions": [
+          {"field": "from", "predicate": "contains", "value": "test"}
+        ],
+        "actions": [
+          {"destination": "Important"}
+        ]
+      }
+    ]
+  }

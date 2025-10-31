@@ -39,8 +39,6 @@ Examples:
         help='Path to rules JSON file (alternative syntax)'
     )
     
-    # Note: dry-run and verbose options removed
-    
     return parser.parse_args()
 
 def main():
@@ -90,8 +88,6 @@ def main():
     action_count = 0
     
     for i, email in enumerate(emails, 1):
-        subject_preview = email['subject'][:60] + '...' if len(email['subject']) > 60 else email['subject']
-        
         print(f"[{i}/{len(emails)}] Processing...", end='\r')
         
         actions = engine.evaluate_rules(email)
