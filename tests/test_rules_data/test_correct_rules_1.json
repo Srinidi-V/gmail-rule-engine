@@ -1,14 +1,21 @@
 {
     "rules": [
-      {
-        "name": "Test 1 - Missing type",
-        "predicate": "all",
-        "conditions": [
-          {"field": "from", "predicate": "contains", "value": "test"}
-        ],
-        "actions": [
-          {"destination": "Important"}
-        ]
-      }
+        {
+            "name": "Test 1",
+            "predicate": "all",
+            "conditions": [
+                {"field": "from", "predicate": "contains", "value": "nykaa"},
+                {
+                  "field": "received_date",
+                  "predicate": "less_than",
+                  "value": "5",
+                  "unit": "days"
+                }
+            ],
+            "actions": [
+                {"type": "mark_as_read"},
+                {"type": "move_message", "destination": "Nykaa"}
+            ]
+        }
     ]
-  }
+}
