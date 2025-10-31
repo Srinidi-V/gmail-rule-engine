@@ -38,6 +38,7 @@ source venv/bin/activate
 ### 3. Install Dependencies
 ```bash
 pip install -r requirements.txt
+pip install -r requirements-dev.txt
 ```
 
 ### 4. Install PostgreSQL (Mac)
@@ -69,7 +70,6 @@ python3 fetch_emails.py
 
 # Fetch specific number
 python3 fetch_emails.py 100
-python3 fetch_emails.py --max 200
 ```
 
 ### Process Emails with Rules
@@ -200,22 +200,3 @@ pytest tests/ -v
 pytest tests/test_rule_engine.py -v
 pytest tests/test_validation.py -v
 ```
-
-## 📁 Project Structure
-````
-gmail-rule-engine/
-├── src/
-│   ├── gmail_client.py      # Gmail API integration
-│   ├── database.py           # PostgreSQL with temporal tracking
-│   ├── rule_engine.py        # Rule evaluation logic
-│   └── rule_validator.py     # Rule validation (integrated)
-├── tests/
-│   ├── test_rule_engine.py
-│   ├── test_database.py
-│   └── test_validation.py
-├── fetch_emails.py           # Script to fetch emails
-├── process_rules.py          # Script to process rules
-├── show_history.py           # View email history
-├── config.py                 # Configuration
-├── rules.json                # Rule definitions
-└── README.md
