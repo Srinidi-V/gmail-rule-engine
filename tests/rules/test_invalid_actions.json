@@ -1,0 +1,45 @@
+{
+    "rules": [
+      {
+        "name": "Test 1 - Missing type",
+        "predicate": "all",
+        "conditions": [
+          {"field": "from", "predicate": "contains", "value": "test"}
+        ],
+        "actions": [
+          {"destination": "Important"}
+        ]
+      },
+      {
+        "name": "Test 2 - Invalid type",
+        "predicate": "all",
+        "conditions": [
+          {"field": "from", "predicate": "contains", "value": "test"}
+        ],
+        "actions": [
+          {"type": "archive_message"}
+        ]
+      },
+      {
+        "name": "Test 3 - Missing destination",
+        "predicate": "all",
+        "conditions": [
+          {"field": "from", "predicate": "contains", "value": "test"}
+        ],
+        "actions": [
+          {"type": "move_message"}
+        ]
+      },
+      {
+        "name": "Test 4 - Conflicting",
+        "predicate": "all",
+        "conditions": [
+          {"field": "from", "predicate": "contains", "value": "test"}
+        ],
+        "actions": [
+          {"type": "mark_as_read"},
+          {"type": "mark_as_unread"}
+        ]
+      }
+    ]
+  }

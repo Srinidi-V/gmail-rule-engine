@@ -1,0 +1,66 @@
+{
+    "rules": [
+      {
+        "name": "Important emails with urgent keyword",
+        "predicate": "all",
+        "conditions": [
+          {
+            "field": "subject",
+            "predicate": "contains",
+            "value": "urgent"
+          }
+        ],
+        "actions": [
+          {
+            "type": "mark_as_read"
+          },
+          {
+            "type": "move_message",
+            "destination": "Important"
+          }
+        ]
+      },
+      {
+        "name": "Newsletter cleanup",
+        "predicate": "any",
+        "conditions": [
+          {
+            "field": "from",
+            "predicate": "contains",
+            "value": "newsletter"
+          },
+          {
+            "field": "subject",
+            "predicate": "contains",
+            "value": "unsubscribe"
+          }
+        ],
+        "actions": [
+          {
+            "type": "mark_as_read"
+          },
+          {
+            "type": "move_message",
+            "destination": "Newsletters"
+          }
+        ]
+      },
+      {
+        "name": "Old emails auto-archive",
+        "predicate": "all",
+        "conditions": [
+          {
+            "field": "received_date",
+            "predicate": "less_than",
+            "value": "30",
+            "unit": "days"
+          }
+        ],
+        "actions": [
+          {
+            "type": "mark_as_read"
+          }
+        ]
+      }
+    ]
+  }
