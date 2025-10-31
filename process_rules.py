@@ -159,13 +159,6 @@ def main():
     emails_to_update = []  # Track emails with label changes
 
     for i, email in enumerate(emails, 1):
-        subject_preview = (
-            email.get("subject", "No Subject")[:50] + "..."
-            if len(email.get("subject", "")) > 50
-            else email.get("subject", "No Subject")
-        )
-
-        print(f"\n[{i}/{len(emails)}] {subject_preview}")
 
         # Store original labels to detect changes
         original_labels = email.get("labels", []).copy() if email.get("labels") else []

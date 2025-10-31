@@ -4,7 +4,7 @@
             "name": "Test 1",
             "predicate": "all",
             "conditions": [
-                {"field": "from", "predicate": "contains", "value": "nykaa"},
+                {"field": "from_email", "predicate": "contains", "value": "nykaa"},
                 {
                   "field": "received_date",
                   "predicate": "less_than",
