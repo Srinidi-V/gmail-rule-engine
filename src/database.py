@@ -121,6 +121,29 @@ class EmailDatabase:
                     )
 
                     self._insert_new_version(cursor, email_data, now)
+                else:
+                    cursor.execute(
+                        """
+                        UPDATE emails
+                        SET 
+                            thread_id = %s,
+                            from_email = %s,
+                            to_email = %s,
+                            subject = %s,
+                            message = %s,
+                            received_date = %s
+                        WHERE email_id = %s AND is_current = TRUE
+                        """,
+                        (
+                            email_data.get('thread_id'),
+                            email_data.get('from'),
+                            email_data.get('to'),
+                            email_data.get('subject'),
+                            email_data.get('message'),
+                            email_data.get('received_date'),
+                            email_id
+                        )
+                    )
             else:
                 self._insert_new_version(cursor, email_data, now)
 
@@ -307,7 +330,7 @@ class EmailDatabase:
         try:
             cursor.execute(
                 """
-                SELECT email_id, labels, is_current, valid_from
+                SELECT email_id, labels, is_current, valid_from, valid_to
                 FROM emails
                 WHERE email_id = %s
                 ORDER BY valid_from ASC
@@ -323,6 +346,7 @@ class EmailDatabase:
                         "labels": json.loads(row["labels"]) if row["labels"] else [],
                         "is_current": row["is_current"],
                         "valid_from": row["valid_from"],
+                        "valid_to": row["valid_to"],
                     }
                 )
             return history

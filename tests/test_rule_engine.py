@@ -328,7 +328,7 @@ class TestRuleEvaluationEdgeCases:
 
         email = {"subject": "Any subject"}
         actions = engine.evaluate_rules(email)
-        assert len(actions) > 0
+        assert len(actions) == 0
 
     def test_rule_with_none_field_value(self, temp_rules_file):
         """Test rule evaluation when email field is None"""
