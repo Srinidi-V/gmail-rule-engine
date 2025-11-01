@@ -1,10 +1,10 @@
 {
     "rules": [
         {
-            "name": "Test 1",
+            "name": "Test 2",
             "predicate": "all",
             "conditions": [
-                {"field": "from", "predicate": "contains", "value": "nykaa"},
+                {"field": "from", "predicate": "contains", "value": "indigo"},
                 {
                   "field": "received_date",
                   "predicate": "less_than",
@@ -13,8 +13,9 @@
                 }
             ],
             "actions": [
-                {"type": "mark_as_read"},
-                {"type": "move_message", "destination": "Nykaa"}
+                {"type": "move_message", "destination": "Test A"},
+                {"type": "move_message", "destination": "Inbox"},
+                {"type": "move_message", "destination": "Test B"}
             ]
         }
     ]

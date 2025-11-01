@@ -141,10 +141,10 @@ class TestRuleEvaluation:
         engine = RuleEngine(rules_file)
 
         old_email = {"received_date": datetime.now() - timedelta(days=40)}
-        assert engine.evaluate_rules(old_email) != []
+        assert engine.evaluate_rules(old_email) == []
 
         recent_email = {"received_date": datetime.now() - timedelta(days=20)}
-        assert engine.evaluate_rules(recent_email) == []
+        assert engine.evaluate_rules(recent_email) != []
 
     def test_date_greater_than_predicate(self, temp_rules_file):
         """Test 'greater_than' date predicate (newer emails)"""
@@ -170,10 +170,10 @@ class TestRuleEvaluation:
         engine = RuleEngine(rules_file)
 
         recent_email = {"received_date": datetime.now() - timedelta(days=3)}
-        assert engine.evaluate_rules(recent_email) != []
+        assert engine.evaluate_rules(recent_email) == []
 
         old_email = {"received_date": datetime.now() - timedelta(days=10)}
-        assert engine.evaluate_rules(old_email) == []
+        assert engine.evaluate_rules(old_email) != []
 
     def test_date_months_unit(self, temp_rules_file):
         """Test date predicate with months unit"""
@@ -199,10 +199,10 @@ class TestRuleEvaluation:
         engine = RuleEngine(rules_file)
 
         old_email = {"received_date": datetime.now() - timedelta(days=70)}
-        assert engine.evaluate_rules(old_email) != []
+        assert engine.evaluate_rules(old_email) == []
 
         recent_email = {"received_date": datetime.now() - timedelta(days=30)}
-        assert engine.evaluate_rules(recent_email) == []
+        assert engine.evaluate_rules(recent_email) != []
 
     def test_all_predicate_requires_all_conditions(self, temp_rules_file):
         """Test 'all' predicate (AND logic)"""
@@ -446,7 +446,7 @@ class TestRuleEvaluationEdgeCases:
         tz_date = datetime.now(timezone.utc) - timedelta(days=10)
         email = {"received_date": tz_date}
         actions = engine.evaluate_rules(email)
-        assert len(actions) > 0
+        assert len(actions) == 0
 
     def test_date_predicate_with_missing_date(self, temp_rules_file):
         """Test date predicate when email has no received_date"""
@@ -500,7 +500,7 @@ class TestRuleEvaluationEdgeCases:
         email = {"received_date": old_date_str}
 
         actions = engine.evaluate_rules(email)
-        assert len(actions) > 0
+        assert len(actions) == 0
 
 
 class TestRuleValidation:

@@ -178,7 +178,7 @@ class GmailClient:
 
             labels_to_remove = []
 
-            location_labels = ["INBOX", "SENT", "DRAFT", "TRASH", "SPAM"]
+            location_labels = ["INBOX", "TRASH", "SPAM"]
 
             for label_id in current_labels:
                 label = label_info.get(label_id, {})

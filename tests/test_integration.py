@@ -373,10 +373,10 @@ class TestIntegration:
         engine = RuleEngine(rules_file)
 
         old_actions = engine.evaluate_rules(old_email)
-        assert len(old_actions) > 0
+        assert len(old_actions) == 0
 
         recent_actions = engine.evaluate_rules(recent_email)
-        assert len(recent_actions) == 0
+        assert len(recent_actions) > 0
 
     def test_complex_rule_combination(self, test_db, temp_rules_file):
         """Test complex rule with multiple conditions and actions"""
@@ -410,7 +410,7 @@ class TestIntegration:
                         },
                         {
                             "field": "received_date",
-                            "predicate": "greater_than",
+                            "predicate": "less_than",
                             "value": "1",
                             "unit": "days",
                         },
@@ -762,7 +762,7 @@ class TestEdgeCases:
 
         engine = RuleEngine(rules_file)
         actions = engine.evaluate_rules(future_email)
-        assert len(actions) == 0
+        assert len(actions) > 0
 
     def test_case_sensitivity_consistency(self, temp_rules_file):
         rules = {

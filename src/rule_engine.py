@@ -139,9 +139,9 @@ class RuleEngine:
                 return False
 
             if predicate == "less_than":
-                return email_date < threshold
-            elif predicate == "greater_than":
                 return email_date > threshold
+            elif predicate == "greater_than":
+                return email_date < threshold
 
         except Exception as e:
             print(f"Error evaluating date: {e}")

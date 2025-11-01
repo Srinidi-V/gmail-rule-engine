@@ -80,6 +80,8 @@ def execute_action(gmail: GmailClient, email: dict, action: dict) -> bool:
 
         elif action_type == "move_message":
             destination = action.get("destination", "Processed")
+            if destination.lower() in ["inbox", "trash", "spam", "sent", "draft"]:
+                destination = destination.upper()
             print(f"Moving to '{destination}'...")
             success = gmail.move_message(email["id"], destination)
 
